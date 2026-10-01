@@ -1,0 +1,30 @@
+{
+  "checked_at": "2026-10-01T18:47:16.551570+00:00",
+  "trusted_code_hash": "4ad27a865e2dd417f41d9d78e6c1819080fe962348f40a084698720767b4594d",
+  "benchmark_hash": "2e28e75c2e715c9ee35bfa9833fa7f493ba3f427725bae912a159c1729c061dc",
+  "statuses": {
+    "01": "equivalent",
+    "02": "equivalent",
+    "03": "equivalent",
+    "04": "equivalent",
+    "05": "equivalent",
+    "06": "equivalent",
+    "07": "equivalent",
+    "08": "equivalent",
+    "09": "equivalent",
+    "10": "equivalent",
+    "11": "equivalent",
+    "12": "equivalent",
+    "13": "equivalent",
+    "14": "equivalent",
+    "15": "equivalent",
+    "16": "different",
+    "17": "equivalent",
+    "18": "equivalent",
+    "19": "equivalent",
+    "20": "equivalent"
+  },
+  "equivalent": 19,
+  "total": 20,
+  "api_used": false
+}

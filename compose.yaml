@@ -1,0 +1,63 @@
+name: factorit-migration
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-CU22-ubuntu-22.04
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: ${SQLSERVER_PASSWORD:-LocalMigration!2026}
+      MSSQL_MEMORY_LIMIT_MB: "1536"
+    mem_limit: 2g
+    ports: ["127.0.0.1:${SQLSERVER_PORT:-14330}:1433"]
+    volumes: ["sqlserver-data:/var/opt/mssql"]
+    healthcheck:
+      test: ["CMD-SHELL", '/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -C -Q "SELECT 1" -b >/dev/null']
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 40s
+  postgres:
+    image: postgres:16.13-bookworm
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-LocalMigration!2026}
+    mem_limit: 256m
+    ports: ["127.0.0.1:${POSTGRES_PORT:-54330}:5432"]
+    volumes: ["postgres-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  init:
+    build: .
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    command: ["migrator", "init"]
+    volumes: ["./artifacts:/app/artifacts"]
+    environment: &app-env
+      SQLSERVER_HOST: sqlserver
+      SQLSERVER_PORT: "1433"
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      SQLSERVER_PASSWORD: ${SQLSERVER_PASSWORD:-LocalMigration!2026}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-LocalMigration!2026}
+      RUNNER_PASSWORD: ${RUNNER_PASSWORD:-RunnerMigration!2026}
+    depends_on:
+      sqlserver: {condition: service_healthy}
+      postgres: {condition: service_healthy}
+  app:
+    build: .
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    environment:
+      <<: *app-env
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5-mini}
+      TOKEN_BUDGET: ${TOKEN_BUDGET:-500000}
+      MAX_ATTEMPTS: ${MAX_ATTEMPTS:-3}
+      MAX_OUTPUT_TOKENS: ${MAX_OUTPUT_TOKENS:-8192}
+    ports: ["127.0.0.1:8000:8000"]
+    volumes: ["./artifacts:/app/artifacts"]
+    depends_on:
+      init: {condition: service_completed_successfully}
+volumes:
+  sqlserver-data:
+  postgres-data:

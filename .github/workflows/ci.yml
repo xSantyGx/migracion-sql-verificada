@@ -1,0 +1,57 @@
+name: Verify migration evidence
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      live_openai:
+        description: Execute a new paid OpenAI benchmark
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.lock.txt && pip install --no-deps -e .
+      - run: ruff check migrator tests scripts && pytest -q -m 'not integration'
+      - run: docker compose --progress quiet up -d --wait sqlserver postgres
+      - run: migrator init
+      - run: RUN_DB_TESTS=1 pytest -q -m integration
+      - run: migrator eval-prompts --detection-only
+      - name: Verify saved agent translations (without API)
+        run: |
+          set +e
+          migrator verify
+          result=$?
+          set -e
+          test "$result" -le 1
+          python scripts/check_regression.py
+      - if: always()
+        run: docker compose down
+  live:
+    if: github.event_name == 'workflow_dispatch' && inputs.live_openai
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      TOKEN_BUDGET: '500000'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.lock.txt && pip install --no-deps -e .
+      - run: docker compose --progress quiet up -d --wait sqlserver postgres
+      - run: migrator init && migrator eval-prompts && migrator benchmark --run-id ci-live
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: migration-evidence
+          path: artifacts/
+      - if: always()
+        run: docker compose down

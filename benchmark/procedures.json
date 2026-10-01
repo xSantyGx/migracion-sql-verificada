@@ -1,0 +1,1642 @@
+[
+  {
+    "id": "01",
+    "name": "get_policy",
+    "description": "Consulta simple y ausencia de fila",
+    "source": "source/01_get_policy.sql",
+    "params": [
+      {
+        "name": "policy_id",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "id",
+      "code",
+      "annual_premium"
+    ],
+    "ordered": false,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "01-01",
+        "args": [
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "01-02",
+        "args": [
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "01-03",
+        "args": [
+          3
+        ],
+        "reserved": false
+      },
+      {
+        "id": "01-04",
+        "args": [
+          4
+        ],
+        "reserved": false
+      },
+      {
+        "id": "01-05",
+        "args": [
+          999
+        ],
+        "reserved": false
+      },
+      {
+        "id": "01-06",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "01-07",
+        "args": [
+          5
+        ],
+        "reserved": true
+      },
+      {
+        "id": "01-08",
+        "args": [
+          6
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "02",
+    "name": "client_policies",
+    "description": "Filtro opcional y orden",
+    "source": "source/02_client_policies.sql",
+    "params": [
+      {
+        "name": "client_id",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "id",
+      "code",
+      "status"
+    ],
+    "ordered": true,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "02-01",
+        "args": [
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "02-02",
+        "args": [
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "02-03",
+        "args": [
+          3
+        ],
+        "reserved": false
+      },
+      {
+        "id": "02-04",
+        "args": [
+          4
+        ],
+        "reserved": false
+      },
+      {
+        "id": "02-05",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "02-06",
+        "args": [
+          999
+        ],
+        "reserved": false
+      },
+      {
+        "id": "02-07",
+        "args": [
+          0
+        ],
+        "reserved": true
+      },
+      {
+        "id": "02-08",
+        "args": [
+          -1
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "03",
+    "name": "premium_total",
+    "description": "SUM vacío y NULL",
+    "source": "source/03_premium_total.sql",
+    "params": [
+      {
+        "name": "policy_id",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "total"
+    ],
+    "ordered": false,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "03-01",
+        "args": [
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "03-02",
+        "args": [
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "03-03",
+        "args": [
+          3
+        ],
+        "reserved": false
+      },
+      {
+        "id": "03-04",
+        "args": [
+          4
+        ],
+        "reserved": false
+      },
+      {
+        "id": "03-05",
+        "args": [
+          999
+        ],
+        "reserved": false
+      },
+      {
+        "id": "03-06",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "03-07",
+        "args": [
+          5
+        ],
+        "reserved": true
+      },
+      {
+        "id": "03-08",
+        "args": [
+          6
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "04",
+    "name": "payment_summary",
+    "description": "COUNT y SUM tienen distintas reglas para NULL",
+    "source": "source/04_payment_summary.sql",
+    "params": [
+      {
+        "name": "policy_id",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "payment_count",
+      "total"
+    ],
+    "ordered": false,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "04-01",
+        "args": [
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "04-02",
+        "args": [
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "04-03",
+        "args": [
+          3
+        ],
+        "reserved": false
+      },
+      {
+        "id": "04-04",
+        "args": [
+          4
+        ],
+        "reserved": false
+      },
+      {
+        "id": "04-05",
+        "args": [
+          999
+        ],
+        "reserved": false
+      },
+      {
+        "id": "04-06",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "04-07",
+        "args": [
+          5
+        ],
+        "reserved": true
+      },
+      {
+        "id": "04-08",
+        "args": [
+          6
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "05",
+    "name": "outstanding_balance",
+    "description": "Evitar multiplicación de filas al unir pagos y primas",
+    "source": "source/05_outstanding_balance.sql",
+    "params": [
+      {
+        "name": "policy_id",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "balance"
+    ],
+    "ordered": false,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "05-01",
+        "args": [
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "05-02",
+        "args": [
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "05-03",
+        "args": [
+          3
+        ],
+        "reserved": false
+      },
+      {
+        "id": "05-04",
+        "args": [
+          4
+        ],
+        "reserved": false
+      },
+      {
+        "id": "05-05",
+        "args": [
+          999
+        ],
+        "reserved": false
+      },
+      {
+        "id": "05-06",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "05-07",
+        "args": [
+          5
+        ],
+        "reserved": true
+      },
+      {
+        "id": "05-08",
+        "args": [
+          6
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "06",
+    "name": "due_premiums",
+    "description": "Límite de fecha inclusivo",
+    "source": "source/06_due_premiums.sql",
+    "params": [
+      {
+        "name": "as_of",
+        "tsql": "date",
+        "pg": "date"
+      }
+    ],
+    "columns": [
+      "id",
+      "policy_id",
+      "amount"
+    ],
+    "ordered": true,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "06-01",
+        "args": [
+          "2024-01-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "06-02",
+        "args": [
+          "2024-02-28"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "06-03",
+        "args": [
+          "2024-02-29"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "06-04",
+        "args": [
+          "2024-06-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "06-05",
+        "args": [
+          "1900-01-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "06-06",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "06-07",
+        "args": [
+          "2024-12-31"
+        ],
+        "reserved": true
+      },
+      {
+        "id": "06-08",
+        "args": [
+          "2025-02-28"
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "07",
+    "name": "expiry_window",
+    "description": "BETWEEN inclusivo y extremos invertidos",
+    "source": "source/07_expiry_window.sql",
+    "params": [
+      {
+        "name": "from_date",
+        "tsql": "date",
+        "pg": "date"
+      },
+      {
+        "name": "to_date",
+        "tsql": "date",
+        "pg": "date"
+      }
+    ],
+    "columns": [
+      "id",
+      "end_date"
+    ],
+    "ordered": true,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "07-01",
+        "args": [
+          "2024-01-01",
+          "2024-12-31"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "07-02",
+        "args": [
+          "2024-01-01",
+          "2024-01-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "07-03",
+        "args": [
+          "2024-02-28",
+          "2024-02-29"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "07-04",
+        "args": [
+          "2025-01-01",
+          "2024-01-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "07-05",
+        "args": [
+          null,
+          "2024-12-31"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "07-06",
+        "args": [
+          "1900-01-01",
+          "1900-01-02"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "07-07",
+        "args": [
+          "2025-01-01",
+          "2025-02-28"
+        ],
+        "reserved": true
+      },
+      {
+        "id": "07-08",
+        "args": [
+          "2024-12-31",
+          null
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "08",
+    "name": "date_boundaries",
+    "description": "DATEDIFF cuenta fronteras de día y mes",
+    "source": "source/08_date_boundaries.sql",
+    "params": [
+      {
+        "name": "from_date",
+        "tsql": "date",
+        "pg": "date"
+      },
+      {
+        "name": "to_date",
+        "tsql": "date",
+        "pg": "date"
+      }
+    ],
+    "columns": [
+      "days",
+      "months"
+    ],
+    "ordered": false,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "08-01",
+        "args": [
+          "2024-01-31",
+          "2024-02-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "08-02",
+        "args": [
+          "2024-02-28",
+          "2024-03-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "08-03",
+        "args": [
+          "2024-03-01",
+          "2024-02-28"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "08-04",
+        "args": [
+          "2024-01-01",
+          "2024-01-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "08-05",
+        "args": [
+          null,
+          "2024-01-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "08-06",
+        "args": [
+          "2023-12-31",
+          "2024-01-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "08-07",
+        "args": [
+          "2024-02-29",
+          "2025-02-28"
+        ],
+        "reserved": true
+      },
+      {
+        "id": "08-08",
+        "args": [
+          "2025-01-01",
+          "2024-12-31"
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "09",
+    "name": "prorated_premium",
+    "description": "Prorrateo decimal con año bisiesto",
+    "source": "source/09_prorated_premium.sql",
+    "params": [
+      {
+        "name": "policy_id",
+        "tsql": "int",
+        "pg": "integer"
+      },
+      {
+        "name": "days",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "premium"
+    ],
+    "ordered": false,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "09-01",
+        "args": [
+          1,
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "09-02",
+        "args": [
+          2,
+          366
+        ],
+        "reserved": false
+      },
+      {
+        "id": "09-03",
+        "args": [
+          4,
+          0
+        ],
+        "reserved": false
+      },
+      {
+        "id": "09-04",
+        "args": [
+          5,
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "09-05",
+        "args": [
+          999,
+          10
+        ],
+        "reserved": false
+      },
+      {
+        "id": "09-06",
+        "args": [
+          1,
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "09-07",
+        "args": [
+          6,
+          365
+        ],
+        "reserved": true
+      },
+      {
+        "id": "09-08",
+        "args": [
+          1,
+          -30
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "name": "round_amount",
+    "description": "ROUND mitades alejadas de cero",
+    "source": "source/10_round_amount.sql",
+    "params": [
+      {
+        "name": "amount",
+        "tsql": "decimal(19,4)",
+        "pg": "numeric"
+      },
+      {
+        "name": "digits",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "rounded"
+    ],
+    "ordered": false,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "10-01",
+        "args": [
+          "1.005",
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "10-02",
+        "args": [
+          "-1.005",
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "10-03",
+        "args": [
+          "99.995",
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "10-04",
+        "args": [
+          "0.0049",
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "10-05",
+        "args": [
+          "125",
+          -1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "10-06",
+        "args": [
+          "0",
+          0
+        ],
+        "reserved": false
+      },
+      {
+        "id": "10-07",
+        "args": [
+          "2.675",
+          2
+        ],
+        "reserved": true
+      },
+      {
+        "id": "10-08",
+        "args": [
+          "-125",
+          -1
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "name": "null_and_concat",
+    "description": "ISNULL y CONCAT con NULL",
+    "source": "source/11_null_and_concat.sql",
+    "params": [
+      {
+        "name": "policy_id",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "label",
+      "notes"
+    ],
+    "ordered": false,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "11-01",
+        "args": [
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "11-02",
+        "args": [
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "11-03",
+        "args": [
+          3
+        ],
+        "reserved": false
+      },
+      {
+        "id": "11-04",
+        "args": [
+          4
+        ],
+        "reserved": false
+      },
+      {
+        "id": "11-05",
+        "args": [
+          999
+        ],
+        "reserved": false
+      },
+      {
+        "id": "11-06",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "11-07",
+        "args": [
+          5
+        ],
+        "reserved": true
+      },
+      {
+        "id": "11-08",
+        "args": [
+          6
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "12",
+    "name": "search_code",
+    "description": "Collation explícita case-insensitive sin normalizar resultados",
+    "source": "source/12_search_code.sql",
+    "params": [
+      {
+        "name": "code",
+        "tsql": "nvarchar(100)",
+        "pg": "text"
+      }
+    ],
+    "columns": [
+      "id",
+      "code"
+    ],
+    "ordered": true,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "12-01",
+        "args": [
+          "POL-A"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "12-02",
+        "args": [
+          "pol-a"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "12-03",
+        "args": [
+          "POL-B"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "12-04",
+        "args": [
+          "pol-b"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "12-05",
+        "args": [
+          "no-existe"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "12-06",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "12-07",
+        "args": [
+          "POL-C"
+        ],
+        "reserved": true
+      },
+      {
+        "id": "12-08",
+        "args": [
+          "pol-f"
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "13",
+    "name": "top_policies",
+    "description": "TOP con orden y desempate fijo",
+    "source": "source/13_top_policies.sql",
+    "params": [
+      {
+        "name": "limit_count",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "id",
+      "annual_premium"
+    ],
+    "ordered": true,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "13-01",
+        "args": [
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "13-02",
+        "args": [
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "13-03",
+        "args": [
+          0
+        ],
+        "reserved": false
+      },
+      {
+        "id": "13-04",
+        "args": [
+          10
+        ],
+        "reserved": false
+      },
+      {
+        "id": "13-05",
+        "args": [
+          3
+        ],
+        "reserved": false
+      },
+      {
+        "id": "13-06",
+        "args": [
+          4
+        ],
+        "reserved": false
+      },
+      {
+        "id": "13-07",
+        "args": [
+          5
+        ],
+        "reserved": true
+      },
+      {
+        "id": "13-08",
+        "args": [
+          6
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "14",
+    "name": "temp_balances",
+    "description": "Tabla temporal y agregaciones",
+    "source": "source/14_temp_balances.sql",
+    "params": [
+      {
+        "name": "client_id",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "id",
+      "balance"
+    ],
+    "ordered": true,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "14-01",
+        "args": [
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "14-02",
+        "args": [
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "14-03",
+        "args": [
+          3
+        ],
+        "reserved": false
+      },
+      {
+        "id": "14-04",
+        "args": [
+          4
+        ],
+        "reserved": false
+      },
+      {
+        "id": "14-05",
+        "args": [
+          999
+        ],
+        "reserved": false
+      },
+      {
+        "id": "14-06",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "14-07",
+        "args": [
+          0
+        ],
+        "reserved": true
+      },
+      {
+        "id": "14-08",
+        "args": [
+          -1
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "name": "cursor_total",
+    "description": "Cursor con redondeo por fila, no sobre la suma",
+    "source": "source/15_cursor_total.sql",
+    "params": [
+      {
+        "name": "policy_id",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "total"
+    ],
+    "ordered": false,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "15-01",
+        "args": [
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "15-02",
+        "args": [
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "15-03",
+        "args": [
+          3
+        ],
+        "reserved": false
+      },
+      {
+        "id": "15-04",
+        "args": [
+          4
+        ],
+        "reserved": false
+      },
+      {
+        "id": "15-05",
+        "args": [
+          999
+        ],
+        "reserved": false
+      },
+      {
+        "id": "15-06",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "15-07",
+        "args": [
+          5
+        ],
+        "reserved": true
+      },
+      {
+        "id": "15-08",
+        "args": [
+          6
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "16",
+    "name": "dynamic_filter",
+    "description": "SQL dinámico parametrizado",
+    "source": "source/16_dynamic_filter.sql",
+    "params": [
+      {
+        "name": "status",
+        "tsql": "nvarchar(100)",
+        "pg": "text"
+      }
+    ],
+    "columns": [
+      "id",
+      "code"
+    ],
+    "ordered": true,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "16-01",
+        "args": [
+          "ACTIVE"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "16-02",
+        "args": [
+          "EXPIRED"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "16-03",
+        "args": [
+          "CANCELLED"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "16-04",
+        "args": [
+          "MISSING"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "16-05",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "16-06",
+        "args": [
+          "ACTIVE' OR 1=1 --"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "16-07",
+        "args": [
+          "active"
+        ],
+        "reserved": true
+      },
+      {
+        "id": "16-08",
+        "args": [
+          ""
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "17",
+    "name": "safe_ratio",
+    "description": "TRY/CATCH con división por cero",
+    "source": "source/17_safe_ratio.sql",
+    "params": [
+      {
+        "name": "numerator",
+        "tsql": "decimal(19,4)",
+        "pg": "numeric"
+      },
+      {
+        "name": "denominator",
+        "tsql": "decimal(19,4)",
+        "pg": "numeric"
+      }
+    ],
+    "columns": [
+      "ratio",
+      "error_code"
+    ],
+    "ordered": false,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "17-01",
+        "args": [
+          "10",
+          "2"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "17-02",
+        "args": [
+          "1",
+          "3"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "17-03",
+        "args": [
+          "1",
+          "0"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "17-04",
+        "args": [
+          "-1",
+          "2"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "17-05",
+        "args": [
+          null,
+          "1"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "17-06",
+        "args": [
+          "1",
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "17-07",
+        "args": [
+          "0",
+          "0"
+        ],
+        "reserved": true
+      },
+      {
+        "id": "17-08",
+        "args": [
+          "0.0001",
+          "2"
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "18",
+    "name": "monthly_collections",
+    "description": "SQL Server fin de mes y agregación",
+    "source": "source/18_monthly_collections.sql",
+    "params": [
+      {
+        "name": "month_date",
+        "tsql": "date",
+        "pg": "date"
+      }
+    ],
+    "columns": [
+      "month_end",
+      "total"
+    ],
+    "ordered": false,
+    "write_tables": [],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "18-01",
+        "args": [
+          "2024-02-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "18-02",
+        "args": [
+          "2024-02-29"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "18-03",
+        "args": [
+          "2024-01-31"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "18-04",
+        "args": [
+          "2024-03-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "18-05",
+        "args": [
+          "1900-01-01"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "18-06",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "18-07",
+        "args": [
+          "2024-06-30"
+        ],
+        "reserved": true
+      },
+      {
+        "id": "18-08",
+        "args": [
+          "2025-01-01"
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "19",
+    "name": "register_payment",
+    "description": "Validación, THROW y efecto persistente",
+    "source": "source/19_register_payment.sql",
+    "params": [
+      {
+        "name": "policy_id",
+        "tsql": "int",
+        "pg": "integer"
+      },
+      {
+        "name": "amount",
+        "tsql": "decimal(19,4)",
+        "pg": "numeric"
+      }
+    ],
+    "columns": [
+      "payment_id",
+      "total_paid"
+    ],
+    "ordered": false,
+    "write_tables": [
+      "payments"
+    ],
+    "target_kind": "function",
+    "cases": [
+      {
+        "id": "19-01",
+        "args": [
+          1,
+          "10.005"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "19-02",
+        "args": [
+          2,
+          "1"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "19-03",
+        "args": [
+          1,
+          "0"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "19-04",
+        "args": [
+          1,
+          "-1"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "19-05",
+        "args": [
+          999,
+          "10"
+        ],
+        "reserved": false
+      },
+      {
+        "id": "19-06",
+        "args": [
+          1,
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "19-07",
+        "args": [
+          4,
+          "0.005"
+        ],
+        "reserved": true
+      },
+      {
+        "id": "19-08",
+        "args": [
+          null,
+          "10"
+        ],
+        "reserved": true
+      }
+    ]
+  },
+  {
+    "id": "20",
+    "name": "cancel_policy",
+    "description": "Transacción atómica con salida y bitácora",
+    "source": "source/20_cancel_policy.sql",
+    "params": [
+      {
+        "name": "policy_id",
+        "tsql": "int",
+        "pg": "integer"
+      }
+    ],
+    "columns": [
+      "result"
+    ],
+    "ordered": false,
+    "write_tables": [
+      "policies",
+      "movements"
+    ],
+    "target_kind": "procedure",
+    "cases": [
+      {
+        "id": "20-01",
+        "args": [
+          1
+        ],
+        "reserved": false
+      },
+      {
+        "id": "20-02",
+        "args": [
+          2
+        ],
+        "reserved": false
+      },
+      {
+        "id": "20-03",
+        "args": [
+          3
+        ],
+        "reserved": false
+      },
+      {
+        "id": "20-04",
+        "args": [
+          4
+        ],
+        "reserved": false
+      },
+      {
+        "id": "20-05",
+        "args": [
+          999
+        ],
+        "reserved": false
+      },
+      {
+        "id": "20-06",
+        "args": [
+          null
+        ],
+        "reserved": false
+      },
+      {
+        "id": "20-07",
+        "args": [
+          5
+        ],
+        "reserved": true
+      },
+      {
+        "id": "20-08",
+        "args": [
+          6
+        ],
+        "reserved": true
+      }
+    ]
+  }
+]
