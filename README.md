@@ -129,16 +129,16 @@ docker compose up -d --build
 
 ## Entrega privada en GitHub
 
-Inicializa Git y revisa que `.env` no esté incluido. Con GitHub CLI autenticado en tu cuenta:
+Este proyecto ya está en [`xSantyGx/migracion-sql-verificada`](https://github.com/xSantyGx/migracion-sql-verificada). No ejecutes `gh repo create`: crearía un repositorio duplicado. Mantén este repositorio privado y comprueba que `.env` no esté incluido.
+
+La guía de entrega solicita compartirlo con `jaimeguzman` y `Fit-Latam`. Si tienes GitHub CLI autenticado y aún no los has invitado, ejecuta:
 
 ```bash
-gh repo create factorit-migration-lab --private --source=. --remote=origin --push
-OWNER=$(gh api user --jq .login)
-gh api --method PUT "repos/$OWNER/factorit-migration-lab/collaborators/jaimeguzman" -f permission=pull
-gh api --method PUT "repos/$OWNER/factorit-migration-lab/collaborators/Fit-Latam" -f permission=pull
-gh repo view --json visibility,url
+gh api --method PUT repos/xSantyGx/migracion-sql-verificada/collaborators/jaimeguzman -f permission=pull
+gh api --method PUT repos/xSantyGx/migracion-sql-verificada/collaborators/Fit-Latam -f permission=pull
+gh repo view xSantyGx/migracion-sql-verificada --json visibility,url
 ```
 
-Comprueba `PRIVATE` y que las invitaciones estén pendientes o aceptadas. No hacer público el repositorio después de la entrega. La publicación requiere una cuenta autenticada; la clave OpenAI no permite crear repositorios GitHub.
+Comprueba que la visibilidad sea `PRIVATE` y que las invitaciones estén pendientes o aceptadas. No hagas público el repositorio después de la entrega. La clave de OpenAI no permite administrar permisos de GitHub.
 
 La evidencia incluida conserva un caso no equivalente (`dynamic_filter`). Por diseño, `migrator verify` devuelve **1** al verificar el conjunto completo; `migrator verify --procedure 15` devuelve **0** para el cursor corregido. CI además comprueba que los diecinueve procedimientos previamente equivalentes no regresen, sin aprobar el caso conocido como diferente.
