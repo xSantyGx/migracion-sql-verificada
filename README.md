@@ -131,11 +131,13 @@ docker compose up -d --build
 
 Este proyecto ya está en [`xSantyGx/migracion-sql-verificada`](https://github.com/xSantyGx/migracion-sql-verificada). No ejecutes `gh repo create`: crearía un repositorio duplicado. Mantén este repositorio privado y comprueba que `.env` no esté incluido.
 
-La guía de entrega solicita compartirlo con `jaimeguzman` y `Fit-Latam`. Si tienes GitHub CLI autenticado y aún no los has invitado, ejecuta:
+La guía de entrega solicita compartirlo con `jaimeguzman` y `Fit-Latam`. **Importante:** al ser un repositorio privado de una cuenta personal, GitHub solo permite dar a sus colaboradores acceso de lectura y escritura; no hay un rol de solo lectura. Si necesitas limitar el acceso a lectura, el repositorio debe pertenecer a una organización que permita asignar el rol `Read`.
+
+Si aceptas darles acceso de lectura y escritura, y aún no los has invitado, puedes ejecutar con GitHub CLI autenticado:
 
 ```bash
-gh api --method PUT repos/xSantyGx/migracion-sql-verificada/collaborators/jaimeguzman -f permission=pull
-gh api --method PUT repos/xSantyGx/migracion-sql-verificada/collaborators/Fit-Latam -f permission=pull
+gh api --method PUT repos/xSantyGx/migracion-sql-verificada/collaborators/jaimeguzman
+gh api --method PUT repos/xSantyGx/migracion-sql-verificada/collaborators/Fit-Latam
 gh repo view xSantyGx/migracion-sql-verificada --json visibility,url
 ```
 
