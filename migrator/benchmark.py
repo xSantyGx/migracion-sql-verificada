@@ -9,6 +9,7 @@ from .models import Translation
 from .verifier import verify, training_feedback, training_passed
 from .integrity import check_integrity, trust_fingerprint
 from .storage import run_path, write_json, engine_lock
+from .reports import export
 
 
 def translation_input(settings, spec):
@@ -67,6 +68,9 @@ def run_benchmark(settings, run_id, progress=print):
             run["usage_ledger"] = llm.usage()
             write_json(path, run)
 
+        run["status"] = "running"
+        run.pop("finished_at", None)
+        save()
         entries = {p["id"]: p for p in run["procedures"]}
         # Allocate a first pass to every procedure before spending on corrections.
         for spec in specs:
@@ -125,6 +129,7 @@ def run_benchmark(settings, run_id, progress=print):
             if not entry or not entry["agent"]["attempts"]:
                 continue
             technique = entry["agent"]
+            correction_failed = False
             while len(technique["attempts"]) < settings.max_attempts:
                 last = technique["attempts"][-1]
                 if "verification" not in last:
@@ -157,11 +162,14 @@ def run_benchmark(settings, run_id, progress=print):
                     )
                     attempt = {"number": number, "proposal": proposal.model_dump(), "api": metadata}
                     technique["attempts"].append(attempt)
+                    technique["status"] = "incomplete"
                     save()
                     attempt["verification"] = verify(settings, spec, proposal)
                     save()
                 except (BudgetExceeded, ModelFailure) as error:
-                    technique["stop_reason"] = str(error)
+                    correction_failed = True
+                    technique.setdefault("api_failures", []).append(str(error))
+                    technique.update(status="incomplete", stop_reason=str(error))
                     save()
                     break
             last = technique["attempts"][-1]
@@ -169,15 +177,17 @@ def run_benchmark(settings, run_id, progress=print):
                 last["verification"] = verify(
                     settings, spec, Translation.model_validate(last["proposal"])
                 )
-            technique["status"] = last["verification"]["status"]
-            technique.setdefault(
-                "stop_reason",
-                "training_passed"
-                if training_passed(last["verification"])
-                else "cheating_detected"
-                if last["verification"]["cheating_events"]
-                else "max_attempts",
+            technique["status"] = (
+                "incomplete" if correction_failed else last["verification"]["status"]
             )
+            if not correction_failed:
+                technique["stop_reason"] = (
+                    "training_passed"
+                    if training_passed(last["verification"])
+                    else "cheating_detected"
+                    if last["verification"]["cheating_events"]
+                    else "max_attempts"
+                )
             save()
         for spec in specs:
             if spec["id"] not in entries:
@@ -201,4 +211,6 @@ def run_benchmark(settings, run_id, progress=print):
         )
         run["finished_at"] = datetime.now(timezone.utc).isoformat()
         save()
+        # Exports also write run.json: keep them inside the checkpoint lock.
+        export(run, path.parent)
         return run

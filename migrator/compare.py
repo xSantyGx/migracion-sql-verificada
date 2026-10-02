@@ -13,7 +13,12 @@ def normalize(value):
         return {"boolean": value}
     if isinstance(value, (Decimal, int)):
         number = Decimal(value)
-        return {"number": format(number.normalize(), "f") if number else "0"}
+        # Decimal.normalize() rounds to the active context's precision.
+        # Formatting directly preserves every digit received from either engine.
+        text = format(number, "f") if number else "0"
+        if "." in text:
+            text = text.rstrip("0").rstrip(".")
+        return {"number": text}
     if isinstance(value, float):
         # Financial fixtures use DECIMAL; float coercion is deliberately not accepted.
         return {"float": repr(value)}

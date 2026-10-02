@@ -62,6 +62,10 @@ No estoy habilitado para responder ese tipo de preguntas.
 
 Las consultas también consumen el presupuesto global. La web y la CLI comparten el ledger y su lock.
 
+La exportación con `migrator report` espera que termine la evaluación activa
+para proteger sus checkpoints. Si el lock está ocupado, devuelve un error sin
+modificar la evidencia; la web permite consultar el avance durante la evaluación.
+
 ## Desarrollo local y pruebas
 
 El adaptador SQL Server usa `pymssql`/FreeTDS, sin instalar ODBC en el host.
@@ -104,6 +108,12 @@ docker compose exec app migrator report --run-id entrega
 Cada ejecución genera `run.json`, `results.csv` y `results.md`. Contiene código por intento, evidencia por caso, estados, diferencias semánticas, llamadas, tokens, tiempos, hashes y motivos de parada. La primera llamada compartida se cuenta en cada técnica para comparar coste lógico; el ledger cuenta el gasto real una sola vez. Los archivos de evidencia curados para entregar viven en `reports/` y sí se versionan; `artifacts/` es trabajo local excluido de Git.
 
 Cambiar contratos, fuentes, código o prompts impide reanudar una ejecución anterior. Para comparar el nuevo sistema inicia otro ID y conserva la evidencia anterior. Los casos reservados nunca se envían como feedback de corrección.
+
+Si una corrección se interrumpe por un fallo de API o falta de presupuesto, el
+agente y la ejecución quedan como `incomplete` y `benchmark` devuelve exit 1.
+Se conserva la última propuesta y su verificación. Al reanudar el mismo ID se
+continúa desde ese intento, se actualiza el motivo de parada y se conserva el
+historial de errores en `api_failures`.
 
 ## Arquitectura y hallazgos
 

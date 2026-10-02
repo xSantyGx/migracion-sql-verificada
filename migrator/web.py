@@ -89,8 +89,8 @@ def api_ask(body: Question):
     from .llm import BudgetExceeded, ModelFailure
 
     try:
-        result = ask(Settings(), body.question, get_run(body.run_id))
         run = get_run(body.run_id)
+        result = ask(Settings(), body.question, run)
         result["evidence"] = [
             {"id": pid, "url": f"/procedures/{pid}?run_id={run['id']}"}
             for pid in result["procedure_ids"]

@@ -2,6 +2,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 import typer
+from filelock import Timeout
 from .config import Settings, redact
 from .db import Engines
 from .integrity import check_integrity
@@ -69,7 +70,6 @@ def benchmark(run_id: str = typer.Option(None, help="Reutiliza el ID para reanud
         s = Settings()
         name = run_id or datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         run = run_benchmark(s, name, typer.echo)
-        export(run, run_path(s, name).parent)
         typer.echo(json.dumps(summary(run), ensure_ascii=False, indent=2))
         typer.echo("Evidencia: " + str(run_path(s, name).parent))
         if run["status"] != "completed":
@@ -128,9 +128,15 @@ def report(run_id: str = typer.Option(None), output: Path = typer.Option(None)):
 
     def action():
         s = Settings()
-        run = load_run(s, run_id)
-        destination = output or run_path(s, run["id"]).parent
-        export(run, destination)
+        try:
+            with engine_lock(s):
+                run = load_run(s, run_id)
+                destination = output or run_path(s, run["id"]).parent
+                export(run, destination)
+        except Timeout as error:
+            raise RuntimeError(
+                "Hay una evaluación en curso. Espera a que termine para exportar el informe."
+            ) from error
         typer.echo(json.dumps(summary(run), ensure_ascii=False, indent=2))
         typer.echo(str(destination))
 

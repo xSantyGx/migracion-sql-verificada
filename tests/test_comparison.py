@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, localcontext
 from migrator.compare import normalize, compare
 
 
@@ -15,6 +15,25 @@ def test_financial_precision_is_exact():
     assert compare(result([[Decimal("1.0050")]]), result([[Decimal("1.0051")]]))
     assert not compare(result([[Decimal("1.00")]]), result([[1]]))
     assert compare(result([[Decimal("1")]]), result([[1.0]]))
+
+
+def test_decimal_differences_beyond_context_precision_are_not_hidden():
+    source = result([[Decimal("1000")]])
+    target = result([[Decimal("1000.0000000000000000000000000001")]])
+    assert compare(source, target)
+
+
+def test_number_normalization_preserves_digits_independently_of_context():
+    with localcontext() as context:
+        context.prec = 6
+        assert normalize(Decimal("123456789012345678901234567890.123400")) == {
+            "number": "123456789012345678901234567890.1234"
+        }
+        assert normalize(123456789012345678901234567890) == {
+            "number": "123456789012345678901234567890"
+        }
+        assert normalize(Decimal("1E+3")) == normalize(Decimal("1000.0000"))
+        assert normalize(Decimal("-0.000")) == normalize(0)
 
 
 def test_null_and_text_are_never_normalized_away():
